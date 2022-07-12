@@ -4,18 +4,7 @@ import Axios from 'axios'
 import { Button, Row, Col, Container, Form, Card, Table } from 'react-bootstrap';
 
 const baseUrl = 'http://localhost:3333'
-function getStatus(el) {
-  switch (el.status) {
-    case 'INIT':
-      return 'Init';
-    case 'DONE':
-      return 'Done';
-    case 'BTC_SENT':
-      return `Bitcoin Sent (#${el.blockchainConfirmations} confirmations)`;
-    default:
-      return el.status
-  }
-}
+
 
 function App() {
   const [paymentStatus, setPaymentStatus] = useState();
@@ -40,6 +29,20 @@ function App() {
       })
     })
   }, [refreshKey])
+
+
+  const getStatus = (el) => {
+    switch (el.status) {
+      case 'INIT':
+        return 'Init';
+      case 'DONE':
+        return 'Done';
+      case 'BTC_SENT':
+        return `Bitcoin Sent (#${el.blockchainConfirmations} confirmations)`;
+      default:
+        return el.status
+    }
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -128,10 +131,10 @@ function App() {
             {paymentStatus === 'failed' ? (<Col>Payment Failed</Col>) : ""}
           </Col>
         </Row>
-        <Row>
-          <Col><h4 className='top-space'>Recent Transactions</h4></Col>
-        </Row>
-        <Row>
+
+        {orders ? (<Row className='top-space'>
+          <Col lg="12"><h4 className='top-space'>Recent Transactions</h4></Col>
+
           <Col>
             <Table className='top-space' striped bordered hover>
               <thead>
@@ -154,7 +157,7 @@ function App() {
               </tbody>
             </Table>
           </Col>
-        </Row>
+        </Row>) : ""}
       </Container>
     </div>
   );
