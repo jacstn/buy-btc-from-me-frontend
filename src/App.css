@@ -1,4 +1,4 @@
-.App {
+.card {
   text-align: center;
 }
 
@@ -7,7 +7,7 @@
   pointer-events: none;
 }
 
-.pay-button {
+.top-space {
   margin-top: 20px;
 }
 
